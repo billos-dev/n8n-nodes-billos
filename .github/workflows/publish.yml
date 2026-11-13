@@ -1,0 +1,38 @@
+# Inert inside the monorepo (GitHub reads only the root .github). It runs once this folder is
+# the root of github.com/billos-dev/n8n-nodes-billos: n8n accepts community nodes published
+# from GitHub Actions with npm provenance only (since 2026-05-01).
+#
+# npm's Trusted Publisher is set in the settings of a package that EXISTS (for a name never
+# published, npmjs.com/package/<name>/access answers Not Found). So the FIRST version goes out
+# with the repository secret NPM_TOKEN, and every later one through Trusted Publishing once the
+# secret is deleted: the token step runs only while the secret is there.
+name: Publish
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      HAS_NPM_TOKEN: ${{ secrets.NPM_TOKEN != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+      - run: npm install -g npm@latest
+      - run: npm ci
+      - run: npm run build
+      - run: npm run lint
+      - name: Publish with the token (the first version only)
+        if: env.HAS_NPM_TOKEN == 'true'
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish through Trusted Publishing
+        if: env.HAS_NPM_TOKEN != 'true'
+        run: npm publish --provenance --access public

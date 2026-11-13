@@ -1,0 +1,55 @@
+{
+  "name": "n8n-nodes-billos",
+  "version": "0.1.0",
+  "description": "BillOS for n8n: issue Israeli tax invoices and receipts, and trigger workflows on documents, payments, quotes and expenses.",
+  "keywords": [
+    "n8n-community-node-package",
+    "billos",
+    "invoice",
+    "receipt",
+    "israel",
+    "accounting",
+    "חשבונית"
+  ],
+  "license": "MIT",
+  "homepage": "https://docs.billos.co.il",
+  "author": {
+    "name": "BillOS",
+    "email": "dev@billos.co.il"
+  },
+  "main": "index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc && node scripts/copy-icons.mjs",
+    "test": "npm run build && node --test --test-force-exit test/*.test.mjs",
+    "lint": "n8n-node lint",
+    "prepublishOnly": "npm run build && n8n-node lint"
+  },
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "strict": true,
+    "credentials": [
+      "dist/credentials/BillosApi.credentials.js",
+      "dist/credentials/BillosOAuth2Api.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/Billos/Billos.node.js",
+      "dist/nodes/Billos/BillosTrigger.node.js"
+    ]
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  },
+  "devDependencies": {
+    "@n8n/node-cli": "^0.49.1",
+    "eslint": "^9.29.0",
+    "n8n-workflow": "2.16.0",
+    "typescript": "5.9.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/billos-dev/n8n-nodes-billos.git"
+  }
+}
