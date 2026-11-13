@@ -3,13 +3,19 @@
 # from GitHub Actions with npm provenance only (since 2026-05-01).
 #
 # npm's Trusted Publisher is set in the settings of a package that EXISTS (for a name never
-# published, npmjs.com/package/<name>/access answers Not Found). So the FIRST version goes out
-# with the repository secret NPM_TOKEN, and every later one through Trusted Publishing once the
-# secret is deleted: the token step runs only while the secret is there.
+# published, npmjs.com/package/<name>/access answers Not Found), and a token cannot publish
+# directly for an account with 2FA: the first run answered EOTP. So while the repository secret
+# NPM_TOKEN is there, the version is STAGED (`npm stage publish`, which asks for no one-time
+# password and creates a package that does not exist yet), and the npm account's owner approves
+# it on npmjs.com under Staged Packages. Once the package exists and has a Trusted Publisher,
+# the secret is deleted and a version is published without a token.
+#
+# workflow_dispatch is there so a failed run can be repeated without moving a tag.
 name: Publish
 on:
   push:
     tags: ['v*']
+  workflow_dispatch:
 permissions:
   contents: read
   id-token: write
@@ -28,9 +34,9 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm run lint
-      - name: Publish with the token (the first version only)
+      - name: Stage with the token (approved on npmjs.com, Staged Packages)
         if: env.HAS_NPM_TOKEN == 'true'
-        run: npm publish --provenance --access public
+        run: npm stage publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish through Trusted Publishing
