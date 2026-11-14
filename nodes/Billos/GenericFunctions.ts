@@ -14,10 +14,10 @@ export const API_BASE = 'https://api.billos.co.il/v1';
 export const PUBLIC_ORIGIN = 'https://api.billos.co.il';
 
 export const DOC_TYPES: INodePropertyOptions[] = [
-	{ name: 'Tax Invoice / Receipt (חשבונית מס/קבלה)', value: 320 },
-	{ name: 'Tax Invoice (חשבונית מס)', value: 305 },
-	{ name: 'Receipt (קבלה)', value: 400 },
-	{ name: 'Proforma Invoice (חשבונית עסקה)', value: 300 },
+	{ name: 'Tax Invoice / Receipt', value: 320 },
+	{ name: 'Tax Invoice', value: 305 },
+	{ name: 'Receipt', value: 400 },
+	{ name: 'Proforma Invoice', value: 300 },
 ];
 const DOC_TYPE_NAME: Record<number, string> = { 300: 'Proforma invoice', 305: 'Tax invoice', 320: 'Tax invoice / receipt', 330: 'Credit note', 400: 'Receipt' };
 

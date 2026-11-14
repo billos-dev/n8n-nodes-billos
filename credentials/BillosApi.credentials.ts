@@ -1,6 +1,6 @@
 import type { IAuthenticateGeneric, ICredentialTestRequest, ICredentialType, INodeProperties } from 'n8n-workflow';
 
-// An API key from the BillOS console (dash.billos.co.il → מפתחים). A bk_test_ key answers
+// An API key from the BillOS console (dash.billos.co.il, the developer area). A bk_test_ key answers
 // from the sandbox and a bk_live_ key from the real ledger, at the same address.
 export class BillosApi implements ICredentialType {
 	name = 'billosApi';

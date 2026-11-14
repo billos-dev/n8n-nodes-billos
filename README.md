@@ -16,7 +16,7 @@ Document issued, PDF ready, invoice paid, allocation number assigned, expense re
 ## Credentials
 
 - **BillOS API**: an API key from the [BillOS console](https://dash.billos.co.il). A `bk_test_` key works against the free sandbox, a `bk_live_` key against the real ledger. A key reaches the businesses it opened, which is the platform shape.
-- **BillOS OAuth2 API**: BillOS Connect, for a business owner's own n8n. Register a Connect app in the console (מפתחים → אפליקציות Connect) with this credential's OAuth Redirect URL, then paste its client id and secret. A sandbox app works at once; a live app is approved by BillOS first.
+- **BillOS OAuth2 API**: BillOS Connect, for a business owner's own n8n. Register a Connect app in the console's developer area (Connect apps) with this credential's OAuth Redirect URL, then paste its client id and secret. A sandbox app works at once; a live app is approved by BillOS first.
 
 Amounts are entered in shekels. An invoice-receipt with a price before VAT is sent VAT-inclusive at the business's own rate, so its payment always equals the ledger's total.
 

@@ -72,7 +72,7 @@ export class Billos implements INodeType {
 			{ displayName: 'Description', name: 'description', type: 'string', default: '', displayOptions: { show: { operation: ['create'] } }, description: 'What was sold. Required on invoices; on a receipt it is printed as the note.' },
 			{ displayName: 'Unit Price (₪)', name: 'unitPrice', type: 'number', typeOptions: { numberPrecision: 2, minValue: 0 }, default: 0, required: true, displayOptions: { show: { operation: ['create'] } } },
 			{ displayName: 'Quantity', name: 'quantity', type: 'number', default: 1, displayOptions: { show: { operation: ['create'] } } },
-			{ displayName: 'Price Includes VAT', name: 'priceIncludesVat', type: 'boolean', default: true, displayOptions: { show: { operation: ['create'] } }, description: 'Whether the customer pays exactly this price (מע"מ כלול), or VAT is added on top' },
+			{ displayName: 'Price Includes VAT', name: 'priceIncludesVat', type: 'boolean', default: true, displayOptions: { show: { operation: ['create'] } }, description: 'Whether the customer pays exactly this price (VAT included), or VAT is added on top' },
 			{
 				displayName: 'Payment Method',
 				name: 'paymentMethod',
@@ -102,7 +102,7 @@ export class Billos implements INodeType {
 					{ displayName: 'Customer Email', name: 'customerEmail', type: 'string', placeholder: 'name@email.com', default: '' },
 					{ displayName: 'Customer Name', name: 'customerName', type: 'string', default: '', description: 'Leave empty for an anonymous cash receipt' },
 					{ displayName: 'Customer Phone', name: 'customerPhone', type: 'string', default: '' },
-					{ displayName: 'Customer Tax ID', name: 'customerTaxId', type: 'string', default: '', description: 'ח.פ or ע.מ. Needed for an allocation number on a large invoice to a business.' },
+					{ displayName: 'Customer Tax ID', name: 'customerTaxId', type: 'string', default: '', description: 'The customer\'s company number or VAT dealer number. Needed for an allocation number on a large invoice to a business.' },
 					{ displayName: 'Email to Customer', name: 'emailToCustomer', type: 'boolean', default: false, description: 'Whether BillOS emails the customer the document link' },
 					{ displayName: 'Language', name: 'lang', type: 'options', options: [{ name: 'Hebrew', value: 'he' }, { name: 'English', value: 'en' }], default: 'he' },
 					{ displayName: 'Note', name: 'note', type: 'string', default: '', description: 'Printed under the lines, up to 500 characters' },
@@ -113,7 +113,7 @@ export class Billos implements INodeType {
 			{ displayName: 'Document ID', name: 'documentId', type: 'string', required: true, default: '', displayOptions: { show: { operation: ['get', 'getPdfLink'] } } },
 			// ── search ──
 			{ displayName: 'Query', name: 'query', type: 'string', required: true, default: '', displayOptions: { show: { operation: ['search'] } }, description: 'A document number or a customer name' },
-			{ displayName: 'Document Type', name: 'searchDocType', type: 'options', options: [{ name: 'Any', value: 0 }, ...DOC_TYPES, { name: 'Credit Note (חשבונית זיכוי)', value: 330 }], default: 0, displayOptions: { show: { operation: ['search'] } } },
+			{ displayName: 'Document Type', name: 'searchDocType', type: 'options', options: [{ name: 'Any', value: 0 }, ...DOC_TYPES, { name: 'Credit Note', value: 330 }], default: 0, displayOptions: { show: { operation: ['search'] } } },
 			{ displayName: 'Limit', name: 'limit', type: 'number', typeOptions: { minValue: 1 }, default: 50, displayOptions: { show: { operation: ['search'] } }, description: 'Max number of results to return' },
 		],
 	};

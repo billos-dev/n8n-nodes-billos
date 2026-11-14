@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-billos",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "BillOS for n8n: issue Israeli tax invoices and receipts, and trigger workflows on documents, payments, quotes and expenses.",
   "keywords": [
     "n8n-community-node-package",
@@ -8,8 +8,7 @@
     "invoice",
     "receipt",
     "israel",
-    "accounting",
-    "חשבונית"
+    "accounting"
   ],
   "license": "MIT",
   "homepage": "https://docs.billos.co.il",
